@@ -1,3 +1,4 @@
+
 # Pokémon Web App
 
 This is a Pokémon web application built with React, React Router, and React Query. It fetches data from the Pokémon API and displays a list of Pokémon with pagination. Users can view detailed information about individual Pokémon.
@@ -495,3 +496,4 @@ export function PaginationDemo({ pageNumber, setPageNumber, totalPages }) {
 ## License
 
 This project is licensed under the MIT License.
+
