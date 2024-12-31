@@ -361,7 +361,136 @@ export function CardWithForm({ data, totalPages }) {
         </>
     );
 }
+
+## Styling
+
+The app uses Tailwind CSS for styling. The styles are defined in the `index.css` file.
+
+### Using Tailwind CSS
+
+Tailwind CSS is a utility-first CSS framework that allows you to build custom designs without writing CSS. To use Tailwind CSS in this project:
+
+1. Install Tailwind CSS:
+    ```bash
+    npm install -D tailwindcss
+    npx tailwindcss init
+    ```
+
+2. Configure Tailwind CSS by adding the paths to all of your template files in the `tailwind.config.js` file:
+    ```js
+    // tailwind.config.js
+    module.exports = {
+      content: [
+        "./src/**/*.{js,jsx,ts,tsx}",
+      ],
+      theme: {
+        extend: {},
+      },
+      plugins: [],
+    }
+    ```
+
+3. Add the Tailwind directives to your CSS file:
+    ```css
+    /* filepath: /d:/Web Developer/Web D Project/Project/Cmpy Project/pokemon web app/src/index.css */
+    @tailwind base;
+    @tailwind components;
+    @tailwind utilities;
+    ```
+
+### Using ShadCN UI
+
+ShadCN UI is a component library that provides a set of reusable UI components. To use ShadCN UI in this project:
+
+1. Install ShadCN UI:
+    ```bash
+    npm install @shadcn/ui
+    ```
+
+2. Import and use ShadCN UI components in your React components:
+    ```jsx
+    // Example usage in a React component
+    import { Button } from "@shadcn/ui";
+
+    const MyComponent = () => {
+      return (
+        <Button>
+          Click Me
+        </Button>
+      );
+    };
+
+    export default MyComponent;
+    ```
+
+## Main Entry Point
+
+The main entry point of the app is defined in the `main.jsx` file.
+
+```jsx
+// filepath: /d:/Web Developer/Web D Project/Project/Cmpy Project/pokemon web app/src/main.jsx
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import "./index.css";
+import { router } from "./router";
+import { RouterProvider } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
+
+createRoot(document.getElementById("root")).render(
+  <StrictMode>
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
+  </StrictMode>
+);
 ```
+
+## Components
+
+### PaginationDemo
+
+The `PaginationDemo` component handles pagination logic.
+
+```jsx
+import * as React from "react";
+import {
+    Pagination,
+    PaginationContent,
+    PaginationEllipsis,
+    PaginationItem,
+    PaginationLink,
+    PaginationNext,
+    PaginationPrevious,
+} from "@/components/ui/pagination";
+
+export function PaginationDemo({ pageNumber, setPageNumber, totalPages }) {
+    return (
+        <div className="pagination-container">
+            <Pagination>
+                <PaginationContent>
+                    <PaginationItem>
+                        <button disabled={pageNumber === 0}>
+                            <PaginationPrevious onClick={() => setPageNumber((prev) => prev - 9)} />
+                        </button>
+                    </PaginationItem>
+                    <PaginationItem>
+                        <PaginationLink>{(pageNumber / 9) + 1}</PaginationLink>
+                    </PaginationItem>
+                    <PaginationItem>
+                        <button disabled={(pageNumber / 9) + 1 >= totalPages}>
+                            <PaginationNext onClick={() => setPageNumber((prev) => prev + 9)} />
+                        </button>
+                    </PaginationItem>
+                </PaginationContent>
+            </Pagination>
+        </div>
+    );
+}
+```
+
+
 
 ## License
 
