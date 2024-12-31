@@ -1,5 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema.json",
+
   "style": "default",
   "rsc": false,
   "tsx": true,
@@ -7,6 +8,7 @@
     "config": "tailwind.config.js",
     "css": "src/index.css",
     "baseColor": "gray",
+
     "cssVariables": true,
     "prefix": ""
   },
