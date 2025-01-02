@@ -5,7 +5,7 @@ This is a Pokémon web application built with React, React Router, and React Que
 
 # Note
 
-When you Download the project or clone the project, after donload or clone, you the project if this error come : 'vite' is not recognized as an internal or external command, operable program or batch file.
+When you Download the project or clone the project, after donload or clone, you run the project if this error come : 'vite' is not recognized as an internal or external command, operable program or batch file.
 The write the command to solve this issue : npm install vite --save-dev
 
 ## Features
