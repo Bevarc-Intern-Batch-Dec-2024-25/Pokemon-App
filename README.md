@@ -3,6 +3,11 @@
 
 This is a Pokémon web application built with React, React Router, and React Query. It fetches data from the Pokémon API and displays a list of Pokémon with pagination. Users can view detailed information about individual Pokémon.
 
+# Note
+
+When you Download the project or clone the project, after donload or clone your the project if this error come : 'vite' is not recognized as an internal or external command, operable program or batch file.
+The write the command to solve this issue : npm install vite --save-dev
+
 ## Features
 
 - Fetch and display a list of Pokémon with pagination.
