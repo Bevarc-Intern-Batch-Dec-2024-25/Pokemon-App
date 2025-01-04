@@ -1,55 +1,61 @@
-{
+import React, { useState } from "react";
+import { Card } from "@/components/ui/card";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
-}
+const PokemonCard = ({ pokemon }) => {
+  const [isModalOpen, setModalOpen] = useState(false);
 
-export const PokemonCards = ({ pokemonData }) => {
   return (
-    <li className="pokemon-card">
-      <figure>
+    <>
+      {/* Pokémon Card */}
+      <Card
+        onClick={() => setModalOpen(true)}
+        className="p-4 bg-white shadow-lg rounded-lg text-center hover:shadow-xl transition-shadow cursor-pointer"
+      >
         <img
-          src={pokemonData.sprites.other.dream_world.front_default}
-          alt={pokemonData.name}
-          className="pokemon-image"
+          src={pokemon.sprites.front_default}
+          alt={pokemon.name}
+          className="w-24 h-24 mx-auto"
         />
-      </figure>
-      <h1 className="pokemon-name">{pokemonData.name}</h1>
-      <div className="pokemon-info pokemon-highlight">
-        <p>
-          {pokemonData.types.map((curType) => curType.type.name).join(", ")}
-        </p>
-      </div>
+        <h2 className="text-lg font-semibold mt-2 capitalize">{pokemon.name}</h2>
+      </Card>
 
-      <div className="grid-three-cols">
-        <p className="pokemon-info">
-          <span> Height:</span> {pokemonData.height}
-        </p>
-        <p className="pokemon-info">
-          <span> Weight:</span> {pokemonData.weight}
-        </p>
-        <p className="pokemon-info">
-          <span> speed:</span> {pokemonData.stats[5].base_stat}
-        </p>
-      </div>
-
-      <div className="grid-three-cols">
-        <div className="pokemon-info">
-          <p>{pokemonData.base_experience}</p>
-          <span> Experience:</span>
-        </div>
-        <div className="pokemon-info">
-          <p>{pokemonData.stats[1].base_stat}</p>
-          <span>Attack:</span>
-        </div>
-        <div className="pokemon-info">
-          <p>
-            {pokemonData.abilities
-              .map((abilityInfo) => abilityInfo.ability.name)
-              .slice(0, 1)
-              .join(", ")}
-          </p>
-          <span> Abilities: </span>
-        </div>
-      </div>
-    </li>
+      {/* Modal for Pokémon Details */}
+      {isModalOpen && (
+        <Dialog open={isModalOpen} onOpenChange={setModalOpen}>
+          <DialogContent className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-lg">
+            <DialogHeader>
+              <DialogTitle className="text-xl font-bold capitalize">
+                {pokemon.name}
+              </DialogTitle>
+            </DialogHeader>
+            <div className="mt-4">
+              <img
+                src={pokemon.sprites.other["official-artwork"].front_default}
+                alt={pokemon.name}
+                className="w-40 h-40 mx-auto"
+              />
+              <ul className="mt-4 space-y-2 text-gray-700">
+                <li>
+                  <strong>Type:</strong> {pokemon.types.map((t) => t.type.name).join(", ")}
+                </li>
+                <li>
+                  <strong>Height:</strong> {pokemon.height / 10} m
+                </li>
+                <li>
+                  <strong>Weight:</strong> {pokemon.weight / 10} kg
+                </li>
+                <li>
+                  <strong>Abilities:</strong>{" "}
+                  {pokemon.abilities.map((a) => a.ability.name).join(", ")}
+                </li>
+              </ul>
+            </div>
+          </DialogContent>
+        </Dialog>
+      )}
+    </>
   );
 };
+
+export default PokemonCard;
