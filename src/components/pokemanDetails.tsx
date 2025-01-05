@@ -1,29 +1,28 @@
 import { useLocation } from "react-router-dom";
-import { useEffect, useState } from "react";
 import axios from "axios";
+import { useQuery } from "react-query";  
 
 const PokemanDetails = () => {
-  const location = useLocation();
-  const [pokemonDetails, setPokemonDetails] = useState<any>(null);
-  const [loading,setLoading] = useState<boolean>(false);  
+  const location = useLocation(); 
   const pokemonUrl = location.state?.pokemonUrl;
 
-  useEffect(() => {
-    if (pokemonUrl) {
-      const fetchPokemonDetails = async () => {
-        try {
-          const response = await axios.get(pokemonUrl);
-          setPokemonDetails(response.data);
-        } catch (err) {
-          console.error("Error fetching Pokémon details:", err);
-        }
-      };
-      fetchPokemonDetails();
+  const {data:pokemonDetails,isLoading,isError} = useQuery(
+    ['pokemonDetails',pokemonUrl],
+    async () => {
+      if(!pokemonUrl){
+        throw new Error("no pokeman url available");
+      }
+      const response = await axios.get(pokemonUrl);
+      return response.data;  
     }
-  }, [pokemonUrl]);
+  );  
 
-  if (!pokemonDetails) {
+  if (isLoading) {
     return <p>Loading Pokémon details...</p>;
+  }  
+  
+  if (isError) {
+    return <p>Error fetching Pokémon details.</p>;
   }  
    
   return (
@@ -44,4 +43,4 @@ const PokemanDetails = () => {
 };
 
 export default PokemanDetails;
-  
+    
